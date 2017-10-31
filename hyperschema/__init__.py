@@ -14,6 +14,7 @@
    limitations under the License.
 """
 
+from .link import Link
 
 def disable_ssl_warnings():
     import requests
