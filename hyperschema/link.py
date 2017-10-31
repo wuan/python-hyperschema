@@ -17,7 +17,7 @@ import json
 
 from requests import Session
 
-from . import schema
+from . import data, schema
 
 
 class Link(object):
@@ -57,13 +57,13 @@ class Link(object):
             return {}
 
     @classmethod
-    def create_data_schema(self, data, session):
+    def create_data_schema(self, payload, session):
 
-        schema = self.create_schema(data, session)
-        if 'members' in data:
-            return data.ListData([self.create_data_schema(member, session) for member in data['members']], data['total'],
-                            data['limit'], data['offset'], schema)
-        return data.Data(data, schema)
+        schema = self.create_schema(payload, session)
+        if 'members' in payload:
+            return data.ListData([self.create_data_schema(member, session) for member in payload['members']], payload['total'],
+                                    payload['limit'], payload['offset'], schema)
+        return data.Data(payload, schema)
 
     @classmethod
     def create_schema(self, payload, session):
