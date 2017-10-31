@@ -17,7 +17,7 @@ import json
 
 from requests import Session
 
-from . import data, schema
+from . import schema
 
 
 class Link(object):
@@ -66,11 +66,11 @@ class Link(object):
         return data.Data(data, schema)
 
     @classmethod
-    def create_schema(self, data, session):
-        schema = data.Schema(data['_schema']['links'] if '_schema' in data and 'links' in data['_schema'] else None, session)
-        if '_schema' in data:
-            del data['_schema']
-        return schema
+    def create_schema(self, payload, session):
+        schema_object = schema.Schema(payload['_schema']['links'] if '_schema' in payload and 'links' in payload['_schema'] else None, session)
+        if '_schema' in payload:
+            del payload['_schema']
+        return schema_object
 
     def __repr__(self):
         return "Link({}, method={})".format(self.href, self.method)
