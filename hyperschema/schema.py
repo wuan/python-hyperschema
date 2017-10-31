@@ -14,14 +14,14 @@
    limitations under the License.
 """
 
-from .link import Link
+from . import link
 
 
 class Schema(object):
     def __init__(self, links_node=None, session=None):
         if links_node is not None:
             self.links = {
-                link_data['rel']: Link(
+                link_data['rel']: link.Link(
                     link_data['href'],
                     link_data['method'],
                     link_data['schema'] if 'schema' in link_data else None,

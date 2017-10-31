@@ -17,8 +17,7 @@ import json
 
 from requests import Session
 
-from .data import Data, ListData
-from .schema import Schema
+from . import data, schema
 
 
 class Link(object):
@@ -62,13 +61,13 @@ class Link(object):
 
         schema = self.create_schema(data, session)
         if 'members' in data:
-            return ListData([self.create_data_schema(member, session) for member in data['members']], data['total'],
+            return data.ListData([self.create_data_schema(member, session) for member in data['members']], data['total'],
                             data['limit'], data['offset'], schema)
-        return Data(data, schema)
+        return data.Data(data, schema)
 
     @classmethod
     def create_schema(self, data, session):
-        schema = Schema(data['_schema']['links'] if '_schema' in data and 'links' in data['_schema'] else None, session)
+        schema = data.Schema(data['_schema']['links'] if '_schema' in data and 'links' in data['_schema'] else None, session)
         if '_schema' in data:
             del data['_schema']
         return schema
