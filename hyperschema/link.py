@@ -17,6 +17,9 @@ import json
 
 from requests import Session
 
+from .data import Data, ListData
+from .schema import Schema
+
 
 class Link(object):
     def __init__(self, href, method='GET', schema=None, target_schema=None, session=None):
