@@ -11,7 +11,7 @@
     :target: https://coveralls.io/github/wuan/python-hyperschema?branch=master
 
 python client library to build a JSON hyperschema client for
-.. _`https://github.com/Mercateo/rest-schemagen`: https://github.com/Mercateo/rest-schemagen>
+`https://github.com/Mercateo/rest-schemagen <https://github.com/Mercateo/rest-schemagen>`_
 
 Examples
 ========
