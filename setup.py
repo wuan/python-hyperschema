@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 setup(
     name='hyperschema',
     version='0.1.6',
-    packages=find_packages(),
+    packages=find_packages(exclude='tests'),
     scripts=glob.glob('scripts/*'),
     description='Python client library for JSON hyperschema REST services',
     author='Andreas Würl',

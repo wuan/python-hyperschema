@@ -10,7 +10,7 @@
 .. image:: https://coveralls.io/repos/wuan/python-hyperschema/badge.svg?branch=master&service=github
     :target: https://coveralls.io/github/wuan/python-hyperschema?branch=master
 
-python client library to build a JSON hyperschema client for [https://github.com/Mercateo/rest-schemagen](https://github.com/Mercateo/rest-schemagen)
+python client library to build a JSON hyperschema client for `https://github.com/Mercateo/rest-schemagen <https://github.com/Mercateo/rest-schemagen>`
 
 Examples
 ========

@@ -19,6 +19,9 @@ class Data(object):
         self.data = data
         self.schema = schema
 
+    def update(self):
+        return self.follow('self')
+
     def follow(self, rel, payload=None):
         return self.schema.follow(rel, payload)
 

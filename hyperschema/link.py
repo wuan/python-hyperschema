@@ -20,6 +20,13 @@ from requests import Session
 from . import data, schema
 
 
+def create_json(text):
+    if text is not None and text != '':
+        return json.loads(text)
+    else:
+        return {}
+
+
 class Link(object):
     def __init__(self, href, method='GET', schema=None, target_schema=None, session=None):
         self.href = href
@@ -46,28 +53,24 @@ class Link(object):
             data = {}
         else:
             print("follow", self.href)
-            data = self.create_json(response.text)
+            data = create_json(response.text)
 
         return self.create_data_schema(data, self.session)
-
-    def create_json(self, text):
-        if text is not None and text != '':
-            return json.loads(text)
-        else:
-            return {}
 
     @classmethod
     def create_data_schema(self, payload, session):
 
         schema = self.create_schema(payload, session)
         if 'members' in payload:
-            return data.ListData([self.create_data_schema(member, session) for member in payload['members']], payload['total'],
-                                    payload['limit'], payload['offset'], schema)
+            return data.ListData([self.create_data_schema(member, session) for member in payload['members']],
+                                 payload['total'],
+                                 payload['limit'], payload['offset'], schema)
         return data.Data(payload, schema)
 
     @classmethod
     def create_schema(self, payload, session):
-        schema_object = schema.Schema(payload['_schema']['links'] if '_schema' in payload and 'links' in payload['_schema'] else None, session)
+        schema_object = schema.Schema(
+            payload['_schema']['links'] if '_schema' in payload and 'links' in payload['_schema'] else None, session)
         if '_schema' in payload:
             del payload['_schema']
         return schema_object
