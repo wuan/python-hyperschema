@@ -25,7 +25,7 @@ Examples
     # create station
     new_station = stations.follow('create', {'name': 'station-name', 'longitude': 11.0, 'latitude': 49.0})
 
-    stations = stations.follow('self')
+    stations = stations.update()
     for station in stations:
         print("   ", station.data)
 
