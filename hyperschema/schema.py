@@ -14,7 +14,7 @@
    limitations under the License.
 """
 
-from . import link
+from . import link, data
 
 
 class Schema(object):
@@ -34,11 +34,11 @@ class Schema(object):
     def show(self, rel):
         return self.links[rel] if rel in self.links else None
 
-    def follow(self, rel, payload):
+    def follow(self, rel, payload=None):
         if rel in self.links:
             return self.links[rel].follow(payload)
         else:
-            return Schema()
+            return data.Data()
 
     def __str__(self):
         return "Schema(rels=[" + ", ".join(self.links.keys()) + "])"

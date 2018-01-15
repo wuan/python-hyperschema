@@ -20,7 +20,7 @@ from requests import Session
 from . import data, schema
 
 
-def create_json(text):
+def create_dict(text):
     if text is not None and text != '':
         return json.loads(text)
     else:
@@ -50,12 +50,12 @@ class Link(object):
         if response.status_code > 299:
             print("ERROR: {} {} {}".format(self.href, self.method, response.status_code))
             print(response.text)
-            data = {}
+            response_data = {}
         else:
             print("follow", self.href)
-            data = create_json(response.text)
+            response_data = create_dict(response.text)
 
-        return self.create_data_schema(data, self.session)
+        return self.create_data_schema(response_data, self.session)
 
     @classmethod
     def create_data_schema(self, payload, session):
