@@ -32,7 +32,8 @@ class TestSchema(object):
 
         result = empty_schema.follow('any')
 
-        assert_that(result.data).is_empty()
+
+        assert_that(result.data).is_none()
         assert_that(result.schema.links).is_empty()
 
     def test_follow_link(self):

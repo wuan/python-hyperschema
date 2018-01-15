@@ -11,15 +11,15 @@ class TestData(object):
 
         assert_that(data['foo']).is_equal_to('bar')
 
-    def test_data_is_empty(self):
+    def test_empty_data_is_not_valid(self):
         data = Data()
 
-        assert_that(data.is_empty()).is_true()
+        assert_that(data.is_valid()).is_false()
 
-    def test_data_is_not_empty(self):
-        data = Data({'foo': 'bar'})
+    def test_data_is_valid(self):
+        data = Data({})
 
-        assert_that(data.is_empty()).is_false()
+        assert_that(data.is_valid()).is_true()
 
     def test_data_follow(self):
         schema = Mock()
@@ -36,9 +36,22 @@ class TestData(object):
 
         result = empty_data.follow('any')
 
-        assert_that(result.data).is_empty()
+        assert_that(result.data).is_none()
         assert_that(result.schema.links).is_empty()
 
+    def test_empty_data_has_empty_iterator(self):
+        empty_data = Data()
+
+        data = [value for value in empty_data]
+
+        assert_that(data).is_empty()
+
+    def test_data_iterator_should_fail(self):
+        data = Data({'foo': 'bar'})
+
+        iterated_data = [value for value in data]
+
+        assert_that(iterated_data).contains_only('foo')
 
 class TestListData(object):
 

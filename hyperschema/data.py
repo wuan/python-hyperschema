@@ -19,7 +19,7 @@ from .schema import Schema
 
 class Data(object):
     def __init__(self, data=None, schema=None):
-        self.data = data if data else {}
+        self.data = data
         self.schema = schema if schema else Schema()
 
     def update(self):
@@ -34,8 +34,11 @@ class Data(object):
     def __getitem__(self, item):
         return self.data[item]
 
-    def is_empty(self):
-        return self.data == {}
+    def is_valid(self):
+        return self.data is not None
+
+    def __iter__(self):
+        return iter(self.data.keys() if self.data else [])
 
     def __repr__(self):
         return "Data({}, {})".format(self.data, self.schema)
