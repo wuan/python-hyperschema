@@ -14,11 +14,13 @@
    limitations under the License.
 """
 import json
+import logging
 
 from requests import Session
 
 from . import data, schema
 
+logger = logging.getLogger(__name__)
 
 def create_dict(text):
     if text is not None and text != '':
@@ -48,11 +50,10 @@ class Link(object):
             raise ValueError("unhandled method type '{}'".format(self.method))
 
         if response.status_code > 299:
-            print("ERROR: {} {} {}".format(self.href, self.method, response.status_code))
-            print(response.text)
+            logger.warning("ERROR: %s,  method %s, status %d: '%s'", self.href, self.method, response.status_code, response.text)
             response_data = {}
         else:
-            print("follow", self.href)
+            logger.info("follow %s", self.href)
             response_data = create_dict(response.text)
 
         return self.create_data_schema(response_data, self.session)
