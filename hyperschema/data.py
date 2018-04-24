@@ -18,8 +18,9 @@ from .schema import Schema
 
 
 class Data(object):
-    def __init__(self, data=None, schema=None):
+    def __init__(self, data=None, status_code=201, schema=None):
         self.data = data
+        self.status_code = status_code
         self.schema = schema if schema else Schema()
 
     def update(self):

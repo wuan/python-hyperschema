@@ -11,6 +11,11 @@ class TestData(object):
 
         assert_that(data['foo']).is_equal_to('bar')
 
+    def test_data_get_status_code(self):
+        data = Data({}, 200)
+
+        assert_that(data.status_code).is_equal_to(200)
+
     def test_empty_data_is_not_valid(self):
         data = Data()
 
@@ -23,7 +28,7 @@ class TestData(object):
 
     def test_data_follow(self):
         schema = Mock()
-        data = Data(None, schema)
+        data = Data(None, 200, schema)
         payload = {'bar': 'baz'}
 
         result = data.follow('foo', payload)
