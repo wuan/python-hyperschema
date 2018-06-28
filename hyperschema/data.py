@@ -46,11 +46,12 @@ class Data(object):
 
 
 class ListData(object):
-    def __init__(self, members, total, limit, offset, schema):
+    def __init__(self, members, total, limit, offset, status_code, schema):
         self.members = members
         self.total = total
         self.limit = limit
         self.offset = offset
+        self.status_code = status_code
         self.schema = schema
 
     def show(self, rel):

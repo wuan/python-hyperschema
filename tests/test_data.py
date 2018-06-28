@@ -1,7 +1,7 @@
 from assertpy import assert_that
 from mock import Mock, call
 
-from hyperschema.data import Data
+from hyperschema.data import Data, ListData
 
 
 class TestData(object):
@@ -61,6 +61,11 @@ class TestData(object):
 class TestListData(object):
 
     def test_data_get_item(self):
-        data = Data({'foo': 'bar'})
+        listData = ListData([Data({'foo': 'bar'})], 1, 1, 0, 200, None)
 
-        assert_that(data['foo']).is_equal_to('bar')
+        assert_that(listData.members[0]['foo']).is_equal_to('bar')
+
+    def test_data_status_code(self):
+        listData = ListData([Data({'foo': 'bar'})], 1, 1, 0, 212, None)
+
+        assert_that(listData.status_code).is_equal_to(212)

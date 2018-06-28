@@ -64,9 +64,9 @@ class Link(object):
 
         schema = self.create_schema(payload, session)
         if 'members' in payload:
-            return data.ListData([self.create_data_schema(member, 200, session) for member in payload['members']],
+            return data.ListData([self.create_data_schema(member, status_code, session) for member in payload['members']],
                                  payload['total'],
-                                 payload['limit'], payload['offset'], schema)
+                                 payload['limit'], payload['offset'], status_code, schema)
         return data.Data(payload, status_code, schema)
 
     @classmethod
