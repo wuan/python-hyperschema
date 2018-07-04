@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 """
-
+from . import link
 from .schema import Schema
 
 
@@ -28,6 +28,15 @@ class Data(object):
 
     def follow(self, rel, payload=None):
         return self.schema.follow(rel, payload)
+
+    def extract(self, key, session):
+        return link.Link.create_data_schema(self.data[key], self.status_code, session)
+
+    def extractList(self, key, session):
+        payload = self.data[key]
+        members = [link.Link.create_data_schema(data, self.status_code, session) for data in payload]
+        schema = link.Link.create_schema(payload, session)
+        return ListData(members, len(members), len(members), 0, self.status_code, schema)
 
     def show(self, rel):
         return self.schema.show(rel)
